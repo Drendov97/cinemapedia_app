@@ -16,6 +16,7 @@ static const name = 'home-screen';
   Widget build(BuildContext context) {
     return  Scaffold(
       body:  _HomeView(),
+      bottomNavigationBar: CustomBottomNavigationbar(),
     );
   }
 }
