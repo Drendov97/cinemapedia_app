@@ -20,7 +20,7 @@ class MovieMapper{
      ? 'https://image.tmdb.org/t/p/w500/${moviedb.posterPath}'
      :'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo2bQnWMFz4cyviWaJFI507-NiqaPUgqQT8dQl3JRk7A&s=10'
      ,
-             releaseDate: moviedb.releaseDate,
+             //releaseDate: moviedb.releaseDate,
               title: moviedb.title,
                video: moviedb.video,
                 voteAverage: moviedb.voteAverage,

@@ -38,6 +38,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     
     //ref(//.notifier().loadNextPage())
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
 
   }
 
@@ -46,21 +47,66 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlidshowProvider);
+    final popularMovies = ref.watch(popularMoviesProvider);
 
     //if(nowPlayingMovies.length== 0) return CircularProgressIndicator();
 
-    return Column(
-      children: [
-        const CustomAppbar(),
+    return CustomScrollView(
+      slivers: [
+        const SliverAppBar(
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            title:CustomAppbar(),
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context,index){
+              return Column(
+        children: [
+          
+      
+          MoviesSlideshow(movies: slideShowMovies),
+      
+          MoviesHorizontalListview(
+            movies: nowPlayingMovies,
+             title: 'En cines',
+              subtitle: 'Lunes 20',
+              loadNextPage: (){
+                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+              },
+              ),
+      
+              MoviesHorizontalListview(
+            movies: nowPlayingMovies,
+             title: 'Proximamente',
+              subtitle: 'Este Mes',
+              loadNextPage: (){
+                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+              },
+              ),
+      
+              MoviesHorizontalListview(
+            movies: popularMovies,
+             title: 'Populares',
+              subtitle: 'Viernes 25',
+              loadNextPage: (){
+                ref.read(popularMoviesProvider.notifier).loadNextPage();
+              },
+              ),
+      
+      
+      
+        ],
+      
+      );
+            },
+            childCount: 1
 
-        MoviesSlideshow(movies: slideShowMovies),
-
-        MoviesHorizontalListview(movies: nowPlayingMovies, title: 'En cines', subtitle: 'Lunes 20',)
-
-
-
+          ),
+          )
       ],
-
+       
     );
   }
 }
